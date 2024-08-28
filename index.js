@@ -16,7 +16,6 @@ app.post("/login", (req, res) => {
       .json({ message: "Bad request: Missing username or password" });
   }
 
-  // Simulate authentication (you should replace this with actual authentication logic)
   if (username === "testuser" && password === "testpassword") {
     const token = jwt.sign({ name: username }, "secret-key", {
       expiresIn: "1h",
@@ -38,7 +37,6 @@ app.get("/api/products", (req, res) => {
   jwt.verify(token, "secret-key", (err, user) => {
     if (err) return res.sendStatus(403);
 
-    // Simulate products data (replace this with actual data from your database)
     const products = [
       { name: "Product 1" },
       { name: "Product 2" },
