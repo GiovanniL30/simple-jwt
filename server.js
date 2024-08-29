@@ -11,6 +11,7 @@ app.post("/login", (req, res) => {
   const { username, password } = req.body;
 
   if (!username || !password)
+    //checks if username and password is passed
     return res.status(401).json({
       message: "Please provide username and password on the request body",
     });
@@ -20,7 +21,7 @@ app.post("/login", (req, res) => {
     return res.status(401).json({ message: "Invalid credentials" });
   }
 
-  const token = generateToken(username);
+  const token = generateToken(username); // create a new token
   res.status(200).json({ token });
 });
 
@@ -37,7 +38,7 @@ function generateToken(username) {
 }
 
 function validateToken(req, res, next) {
-  const header = req.headers["authorization"];
+  const header = req.headers["authorization"]; //get the token from the request header
   const token = header && header.split(" ")[1];
 
   if (!token) {
@@ -52,7 +53,7 @@ function validateToken(req, res, next) {
         .status(403)
         .json({ message: "Invalid token, , please log in again" });
     }
-    req.username = decoded.username;
+    req.username = decoded.username; //save the username on the req header for the next callback
     next();
   });
 }

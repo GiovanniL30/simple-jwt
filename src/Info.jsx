@@ -28,13 +28,10 @@ const Info = () => {
     };
 
     getData();
-  }, [token, navigate]);
+  }, [token]);
 
-  useEffect(() => {
-    if (errorMessage) {
-      navigate(`/login?message=${encodeURIComponent(errorMessage)}`);
-    }
-  }, [errorMessage, navigate]);
+  // if there is error, navigate user back to login to get new token
+  if (errorMessage) navigate(`/login?message=${errorMessage}`);
 
   return (
     <div>

@@ -23,7 +23,7 @@ const App = () => {
             <Route index element={<Home />} />
             <Route path="login" element={<Login />} />
             <Route element={<Auth />}>
-              <Route path="info" element={<Info />} />
+              <Route path="info" element={<Info />} /> {/* Protected route */}
             </Route>
           </Route>
         </Routes>

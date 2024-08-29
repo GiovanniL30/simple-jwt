@@ -6,8 +6,6 @@ import { Outlet, Navigate } from "react-router-dom";
 const Auth = () => {
   const { token } = useAuth();
 
-  console.log(token);
-
   return token ? (
     <Outlet />
   ) : (
