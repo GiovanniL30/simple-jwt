@@ -41,12 +41,16 @@ function validateToken(req, res, next) {
   const token = header && header.split(" ")[1];
 
   if (!token) {
-    return res.status(401).json({ message: "Token is not found" });
+    return res
+      .status(401)
+      .json({ message: "Acces token is not found, please log in again" });
   }
 
   jwt.verify(token, process.env.TOKEN_KEY, (err, decoded) => {
     if (err) {
-      return res.status(403).json({ message: "Invalid token" });
+      return res
+        .status(403)
+        .json({ message: "Invalid token, , please log in again" });
     }
     req.username = decoded.username;
     next();

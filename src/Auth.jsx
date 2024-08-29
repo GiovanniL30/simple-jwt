@@ -1,8 +1,18 @@
 import React from "react";
+import { useAuth } from "./AuthContext";
+
 import { Outlet, Navigate } from "react-router-dom";
 
 const Auth = () => {
-  return false ? <Outlet /> : <Navigate to="/login" />;
+  const { token } = useAuth();
+
+  console.log(token);
+
+  return token ? (
+    <Outlet />
+  ) : (
+    <Navigate to="/login?message=Please log in first" />
+  );
 };
 
 export default Auth;

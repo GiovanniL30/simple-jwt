@@ -1,7 +1,18 @@
 import React, { useState } from "react";
+import {
+  NavLink,
+  redirect,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
+import { useAuth } from "./AuthContext";
 
 const Login = () => {
   const [formData, setFormData] = useState({ username: "", password: "" });
+  const [params, setParams] = useSearchParams();
+  const { setToken } = useAuth();
+  const navigate = useNavigate();
+  const errorMessage = params.get("message");
 
   function handleChange(e) {
     const { value, name } = e.target;
@@ -22,12 +33,14 @@ const Login = () => {
 
     if (response.ok) {
       const data = await response.json();
-      localStorage.setItem("token", data.token);
+      setToken(data.token);
+      navigate("/");
     }
   }
 
   return (
     <div>
+      {errorMessage && <h1>{errorMessage}</h1>}
       Login
       <form>
         <input
@@ -44,6 +57,9 @@ const Login = () => {
         />
         <button onClick={login} type="button">
           Log in
+        </button>
+        <button>
+          <NavLink to="/">Home</NavLink>
         </button>
       </form>
     </div>
